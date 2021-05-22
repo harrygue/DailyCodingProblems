@@ -1,0 +1,41 @@
+// =================DAILY PROBLEM NO. 41 (medium)===============
+/*
+This problem was asked by Facebook.
+Given an unordered list of flights taken by someone, each represented 
+as (origin, destination) pairs, and a starting airport, compute the 
+person's itinerary. If no such itinerary exists, return null. 
+If there are multiple possible itineraries, return the lexicographically smallest one. All flights must be used in the itinerary.
+For example, given the list of flights [('SFO', 'HKO'), ('YYZ', 'SFO'), 
+('YUL', 'YYZ'), ('HKO', 'ORD')] and starting airport 'YUL', 
+you should return the list ['YUL', 'YYZ', 'SFO', 'HKO', 'ORD'].
+Given the list of flights [('SFO', 'COM'), ('COM', 'YYZ')] 
+and starting airport 'COM', you should return null.
+Given the list of flights [('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'A')] 
+and starting airport 'A', 
+you should return the list ['A', 'B', 'C', 'A', 'C'] 
+even though ['A', 'C', 'A', 'B', 'C'] is also a valid itinerary. 
+However, the first one is lexicographically smaller.
+*/
+console.log("// ========== CODING PROBLEM 41 ================")
+
+// var flightList = [['SFO', 'HKO'], ['YYZ', 'SFO'], ['YUL', 'YYZ'], ['HKO', 'ORD']]
+var flightList = [['A', 'B'], ['A', 'C'], ['B', 'C'], ['C', 'A']]
+
+var startPoint = 'A' //'YUL'
+
+function getItinerary(flightList,startPoint){
+    var itinerary = []
+    var i = 0
+    var firstEl = flightList.find(x => x[0] === startPoint)
+    itinerary.push(firstEl)
+    console.log(itinerary)
+    while(i<flightList.length){
+
+        var nextEl = flightList.find(x => itinerary[itinerary.length-1][1] === x[0])
+        nextEl && itinerary.push(nextEl)
+        i++
+    }
+    return [...itinerary.map(x => x[0]),itinerary[itinerary.length-1][1]]
+}
+
+console.log(getItinerary(flightList,startPoint))
